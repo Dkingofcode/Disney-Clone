@@ -1,29 +1,28 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { selectRecommend } from "../features/movie/movieSlice";
+import { selectOriginal } from "../features/movie/movieSlice";
 
 
-const Recommends = (props) => {
-  const movies = useSelector(selectRecommend);
+const Originals = (props) => {
+  const movies = useSelector(selectOriginal);   
+  return (    
+    <Container>
+    <h1>Originals </h1>
+    <Content>
+        {
+           movies && movies.map((movie, key) => ( 
+            <Wrap key={key}>
+               {movie.id}
+                 <Link to={'/detail/' + movie.id}>
+                 <img src={movie.cardImg} alt={movie.title} />
+                 </Link>
+            </Wrap>
+           )) 
+        }
 
-    return (    
-     <Container>
-        <h1>Recommended for you </h1>
-        <Content>
-            {
-               movies && movies.map((movie, key) => ( 
-                <Wrap key={key}>
-                   {movie.id}
-                     <Link to={'/detail/' + movie.id}>
-                     <img src={movie.cardImg} alt={movie.title} />
-                     </Link>
-                </Wrap>
-               )) 
-            }
-
-        </Content>
-    </Container>
+    </Content>
+</Container>
   );
 }
 
@@ -70,9 +69,9 @@ const Wrap = styled.div`
   &:hover{
     box-shadow: rgb(0 0 0 / 80%) 0px 40px 50px -16px, rgb(0 0 0 / 72%) 0px 30px 22px -10px;
     transform: scaleX(1.05);
-     border-color: rgba(249, 249, 249, 0.8);
+     
   }
 
   `;
 
-export default Recommends;
+  export default Originals;
